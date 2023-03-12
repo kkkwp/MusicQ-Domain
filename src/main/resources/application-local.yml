@@ -1,0 +1,27 @@
+server:
+  port: 81
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  datasource:
+    url: jdbc:mariadb://localhost:3308/MusicQTest
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 8236
+
+logging:
+  level:
+    com.musicq: DEBUG
