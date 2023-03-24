@@ -82,33 +82,4 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
-    // 로그인
-    @PostMapping("/login")
-    public ResponseEntity<LoginResDto> login(
-        @Valid @RequestBody String loginInfo
-    ){
-        JSONObject user = new JSONObject(loginInfo);
-
-        Member member = memberRepository.findById(user.getString("id"));
-
-        LoginResDto response = LoginResDto.builder()
-            .id(member.getId())
-            .email(member.getEmail())
-            .nickname(member.getNickname()).build();
-        return ResponseEntity.ok(response);
-    }
-
-    // 로그인 시 비밀번호 확인
-    @GetMapping("/password/{id}")
-    public ResponseEntity<Object> checkPassword(
-        @Valid @PathVariable String id
-    ){
-        Member member = memberRepository.findById(id);
-        String password = member.getPassword();
-
-        Map<String, String> response = new HashMap<>();
-        response.put("password", password);
-
-        return ResponseEntity.ok(response);
-    }
 }

@@ -21,17 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // nickname 존재 여부
     Long countByNickname(String nickname);
 
-    Member findById(String id);
-
-    default LoginResDto EntityToLoginRes(Member member){
-        LoginResDto loginResDto = LoginResDto.builder()
-            .id(member.getId())
-            .email(member.getEmail())
-            .nickname(member.getNickname())
-            .build();
-
-        return loginResDto;
-    }
     default Map<String, Object> memberInfoToEntity(String memberInfoReq){
         Map<String, Object> entityMap = new HashMap<>();
         JSONObject memberInfo = new JSONObject(memberInfoReq);
