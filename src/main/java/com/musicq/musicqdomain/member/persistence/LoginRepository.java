@@ -10,7 +10,7 @@ public interface LoginRepository extends JpaRepository<Member, Long> {
 
 
 	// login 처리 시 발급할 AccessToken에 삽입할 Member의 정보를 응답하기 위한 메서드
-	default LoginResDto EntityToLoginRes(Member member){
+	default LoginResDto entityToLoginRes(Member member){
 		LoginResDto loginResDto = LoginResDto.builder()
 			.id(member.getId())
 			.email(member.getEmail())

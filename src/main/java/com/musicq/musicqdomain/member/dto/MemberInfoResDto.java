@@ -5,12 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
 public class MemberInfoResDto {
+    @NotNull
+    @Setter
+    private long member_id;
     @NotNull
     private String id;
 
@@ -21,16 +25,17 @@ public class MemberInfoResDto {
     private String nickname;
 
     @NotNull
+    @Setter
     private String password;
 
     @NotNull
-    private Long record;
+    private long record;
 
     @NotNull
-    private int games_count;
+    private long games_count;
 
     @NotNull
-    private int win_count;
+    private long win_count;
 
     @NotNull
     @Builder.Default

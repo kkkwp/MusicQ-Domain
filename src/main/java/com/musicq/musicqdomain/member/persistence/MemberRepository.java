@@ -2,7 +2,6 @@ package com.musicq.musicqdomain.member.persistence;
 
 import com.musicq.musicqdomain.member.domain.Member;
 import com.musicq.musicqdomain.member.domain.MemberImage;
-import com.musicq.musicqdomain.member.dto.LoginResDto;
 import com.musicq.musicqdomain.member.dto.MemberImageDto;
 import com.musicq.musicqdomain.member.dto.MemberInfoResDto;
 import org.json.JSONObject;
@@ -16,10 +15,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     long countById(String id);
 
     // Email 존재 여부
-    Long countByEmail(String email);
+    long countByEmail(String email);
 
     // nickname 존재 여부
-    Long countByNickname(String nickname);
+    long countByNickname(String nickname);
+
+    // 회원 정보 조회
+    Member findById(String id);
 
     default Map<String, Object> memberInfoToEntity(String memberInfoReq){
         Map<String, Object> entityMap = new HashMap<>();
@@ -57,6 +59,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
                 .build();
 
         MemberInfoResDto memberInfoResDto = MemberInfoResDto.builder()
+                .member_id(memberDomain.getMemberId())
                 .id(memberDomain.getId())
                 .email(memberDomain.getEmail())
                 .nickname(memberDomain.getNickname())

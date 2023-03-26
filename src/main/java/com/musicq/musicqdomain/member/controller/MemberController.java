@@ -2,7 +2,6 @@ package com.musicq.musicqdomain.member.controller;
 
 import com.musicq.musicqdomain.member.domain.Member;
 import com.musicq.musicqdomain.member.domain.MemberImage;
-import com.musicq.musicqdomain.member.dto.LoginResDto;
 import com.musicq.musicqdomain.member.dto.MemberInfoResDto;
 import com.musicq.musicqdomain.member.persistence.MemberImageRepository;
 import com.musicq.musicqdomain.member.persistence.MemberRepository;
@@ -10,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +34,7 @@ public class MemberController {
         try {
             count = memberRepository.countById(id);
         } catch (NullPointerException e){
-
-            log.warn("Wrong ID");
+            log.warn("Not Exist ID");
         }
 
         response.put("count", count);
@@ -46,13 +43,20 @@ public class MemberController {
     }
 
     // Email 존재 여부
-
     @GetMapping("/email/{email}")
     public ResponseEntity<Object> checkEmail(
             @Valid @PathVariable("email") String email
     ){
         Map<String, Long> response = new HashMap<>();
-        response.put("count", memberRepository.countByEmail(email));
+        long count = 0;
+
+        try{
+            count = memberRepository.countByEmail(email);
+        } catch (NullPointerException e){
+            log.warn("Not Exist Email");
+        }
+
+        response.put("count", count);
         return ResponseEntity.ok(response);
     }
 
@@ -62,13 +66,37 @@ public class MemberController {
             @Valid @PathVariable("nickname") String nickname
     ){
         Map<String, Long> response = new HashMap<>();
-        response.put("count", memberRepository.countByNickname(nickname));
+        long count = 0;
+
+        try {
+            count = memberRepository.countByNickname(nickname);
+        } catch (NullPointerException e){
+            log.warn("Not Exist Nickname");
+        }
+
+        response.put("count", count);
         return ResponseEntity.ok(response);
     }
 
-    // 회원 가입
+    // 회원 정보 조회
+    @GetMapping("/member/{id}")
+    public ResponseEntity<MemberInfoResDto> checkMemberInfo(
+        @Valid @PathVariable("id") String id
+    ){
+        Member member = memberRepository.findById(id);
+        MemberImage memberImage = memberImageRepository.findAllByMember_Id(id);
+
+        MemberInfoResDto response = memberRepository.entityToMemberInfoRes(member, memberImage);
+        // 비밀 번호는 안보여 줄 거지롱 ~, 근데 Member_id(DB 기본키) 는 Client로 줘야 클라이언트가 가지고 있어야됨.
+        // 클라이언트는 조회 후 수정 할 수 있기 때문에 일단 조회값으로 다 가지고 있다가 (물론 Client에 표시 하면 안됨) 수정 시 기본키 가진채로 요청
+        // JPA는 save 함수가 기본키를 봤을 때 테이블에 존재하는 값이면 Update로 취급하거덩요
+        response.setPassword(null);
+        return ResponseEntity.ok(response);
+    }
+
+    // 회원 가입 및 회원 정보 수정
     @PostMapping("/member")
-    public ResponseEntity<MemberInfoResDto> signup(
+    public ResponseEntity<MemberInfoResDto> controlMemberInfo(
             @Valid @RequestBody String memberInfo
     ){
         Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
@@ -79,6 +107,11 @@ public class MemberController {
         memberImageRepository.save(memberImage);
 
         MemberInfoResDto response = memberRepository.entityToMemberInfoRes(member, memberImage);
+        // 비밀 번호는 안보여 줄 거지롱 ~
+        response.setPassword(null);
+
+        // DB 기본키도 안줄 거지롱 ~
+        response.setMember_id(-1);
         return ResponseEntity.ok(response);
     }
 

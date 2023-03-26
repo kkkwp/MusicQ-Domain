@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.musicq.musicqdomain.member.domain.Member;
 import com.musicq.musicqdomain.member.dto.LoginResDto;
 import com.musicq.musicqdomain.member.persistence.LoginRepository;
-import com.musicq.musicqdomain.member.persistence.MemberRepository;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,7 @@ public class LoginController {
 
 		Member member = loginRepository.findById(logininfo.getString("id"));
 
-		LoginResDto response = loginRepository.EntityToLoginRes(member);
+		LoginResDto response = loginRepository.entityToLoginRes(member);
 
 		return ResponseEntity.ok(response);
 	}

@@ -44,11 +44,10 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     @Builder.Default
-    private int games_count = 0;
+    private Long games_count = 0L;
 
     @Column(nullable = false)
     @Builder.Default
-    private int win_count = 0;
+    private Long win_count = 0L;
 
-    private String refresh_token;
 }
