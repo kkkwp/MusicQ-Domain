@@ -20,6 +20,19 @@ public class MemberImage extends BaseEntity {
     private String profile_img; // 파일 이름
 
     private String path;
+
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;
+
+    public void changesUuid(String uuid){
+        this.uuid = uuid;
+    }
+
+    public void changesProfile_img(String profile_img){
+        this.profile_img = profile_img;
+    }
+
+    public void changesPath(String path){
+        this.path = path;
+    }
 }

@@ -13,9 +13,6 @@ import lombok.Setter;
 @Builder
 public class MemberInfoResDto {
     @NotNull
-    @Setter
-    private long member_id;
-    @NotNull
     private String id;
 
     @NotNull
@@ -23,10 +20,6 @@ public class MemberInfoResDto {
 
     @NotNull
     private String nickname;
-
-    @NotNull
-    @Setter
-    private String password;
 
     @NotNull
     private long record;

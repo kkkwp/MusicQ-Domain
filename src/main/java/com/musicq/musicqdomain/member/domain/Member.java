@@ -35,7 +35,6 @@ public class Member extends BaseEntity {
     private String nickname;
 
     @Column(nullable = false)
-    @Setter
     private String password;
 
     @Column(nullable = false)
@@ -50,4 +49,11 @@ public class Member extends BaseEntity {
     @Builder.Default
     private Long win_count = 0L;
 
+    public void changesNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void changesPassword(String password){
+        this.password = password;
+    }
 }

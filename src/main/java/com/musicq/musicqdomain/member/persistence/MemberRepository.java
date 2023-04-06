@@ -6,6 +6,8 @@ import com.musicq.musicqdomain.member.dto.MemberImageDto;
 import com.musicq.musicqdomain.member.dto.MemberInfoResDto;
 import org.json.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     long countByEmail(String email);
 
     // nickname 존재 여부
-    long countByNickname(String nickname);
+    String countByNickname(String nickname);
+
+    // 본인 nickname 을 변경하지 않고 바로 입력할 때 비교할 nickname 값이 필요하다.
+    @Query("select m.nickname from Member m where m.id = :id")
+    String getCurrentNickname(@Param("id") String id);
 
     // 회원 정보 조회
     Member findById(String id);
@@ -36,11 +42,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
         entityMap.put("member", memberDomain);
 
-        JSONObject memberImageInfo = memberInfo.getJSONObject("memberImageDto");
+        JSONObject memberImageInfo = memberInfo.getJSONObject("memberImage");
 
         MemberImage memberImageDomain = MemberImage.builder()
-                //TODO 추 후 Service Application 에서 UUID 생성하면 주석제거
-                //.uuid(memberImageInfo.getString("uuid"))
+                .uuid(memberImageInfo.getString("uuid"))
                 .path(memberImageInfo.getString("path"))
                 .profile_img(memberImageInfo.getString("profile_img"))
                 .member(memberDomain)
@@ -59,11 +64,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
                 .build();
 
         MemberInfoResDto memberInfoResDto = MemberInfoResDto.builder()
-                .member_id(memberDomain.getMemberId())
                 .id(memberDomain.getId())
                 .email(memberDomain.getEmail())
                 .nickname(memberDomain.getNickname())
-                .password(memberDomain.getPassword())
                 .record(memberDomain.getRecord())
                 .games_count(memberDomain.getGames_count())
                 .win_count(memberDomain.getWin_count())

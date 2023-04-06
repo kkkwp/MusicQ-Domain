@@ -26,7 +26,7 @@ public class MemberController {
 	private final MemberImageRepository memberImageRepository;
 
 	// JSON 으로 반환하기 위해 ResponseEntity<Object> 로 반환하고 count 라는 key 값을 갖도록 Map 을 만들어서 반환
-	// 회원 가입 및 회원 정보 수정
+	// 회원 가입
 	@PostMapping("/member")
 	public ResponseEntity<MemberInfoResDto> controlMemberInfo(
 		@Valid @RequestBody String memberInfo
@@ -39,11 +39,6 @@ public class MemberController {
 		memberImageRepository.save(memberImage);
 
 		MemberInfoResDto response = memberRepository.entityToMemberInfoRes(member, memberImage);
-		// 비밀 번호는 안보여 줄 거지롱 ~
-		response.setPassword(null);
-
-		// DB 기본키도 안줄 거지롱 ~
-		response.setMember_id(-1);
 		return ResponseEntity.ok(response);
 	}
 
@@ -59,7 +54,39 @@ public class MemberController {
 		// 비밀 번호는 안보여 줄 거지롱 ~, 근데 Member_id(DB 기본키) 는 Client로 줘야 클라이언트가 가지고 있어야됨.
 		// 클라이언트는 조회 후 수정 할 수 있기 때문에 일단 조회값으로 다 가지고 있다가 (물론 Client에 표시 하면 안됨) 수정 시 기본키 가진채로 요청
 		// JPA는 save 함수가 기본키를 봤을 때 테이블에 존재하는 값이면 Update로 취급하거덩요
-		response.setPassword(null);
+		// response.setPassword(null);
+		return ResponseEntity.ok(response);
+	}
+
+	// 회원 정보 수정
+	@PutMapping("/member/{id}")
+	public ResponseEntity<MemberInfoResDto> changeMemberInfo(
+		@Valid @PathVariable("id") String id,
+		@Valid @RequestBody String memberInfo
+	){
+		// 현재 입력 받은 id로 사용자의 정보를 가져와서 사용자가 입력한 MemberInfo에서 수정할
+		// 요소들을 꺼내와서 id로 가져온 사용자 정보중 변경사항을 changes로 적용 후 꺼내온
+		// 사용자의 정보를 다시 저장해서 Update되도록 구성
+		Member existMember = memberRepository.findById(id);
+		MemberImage existMemberImage = memberImageRepository.findAllByMember_Id(id);
+
+		Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
+		Member member = (Member)entityMap.get("member");
+		MemberImage memberImage = (MemberImage)entityMap.get("member_image");
+
+		existMember.changesNickname(member.getNickname());
+		existMemberImage.changesUuid(memberImage.getUuid());
+		existMemberImage.changesPath(memberImage.getPath());
+		existMemberImage.changesProfile_img(memberImage.getProfile_img());
+
+		memberRepository.save(existMember);
+		memberImageRepository.save(existMemberImage);
+
+		Member changedMember = memberRepository.findById(id);
+		MemberImage changedMemberImage = memberImageRepository.findAllByMember_Id(id);
+
+		MemberInfoResDto response = memberRepository.entityToMemberInfoRes(changedMember, changedMemberImage);
+
 		return ResponseEntity.ok(response);
 	}
 
@@ -136,20 +163,25 @@ public class MemberController {
 	}
 
 	// Nickname 존재 여부
-	@GetMapping("/nickname/{nickname}")
+	@GetMapping("/nickname/{id}/{nickname}")
 	public ResponseEntity<Object> checkNickname(
+		@Valid @PathVariable("id") String id,
 		@Valid @PathVariable("nickname") String nickname
 	) {
-		Map<String, Long> response = new HashMap<>();
-		long count = 0;
+		Map<String, String> response = new HashMap<>();
+		String count = "0";
+		String currentNickname = null;
 
 		try {
 			count = memberRepository.countByNickname(nickname);
+			currentNickname = memberRepository.getCurrentNickname(id);
+			log.warn(currentNickname);
 		} catch (NullPointerException e) {
 			log.warn("Not Exist Nickname");
 		}
 
 		response.put("count", count);
+		response.put("currentNickname", currentNickname);
 		return ResponseEntity.ok(response);
 	}
 
