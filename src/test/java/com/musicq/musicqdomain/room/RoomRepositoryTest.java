@@ -1,5 +1,6 @@
 package com.musicq.musicqdomain.room;
 
+import java.util.Optional;
 import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,15 @@ public class RoomRepositoryTest {
 	}
 
 	@Test
-	public void selectRoomId() {
-		System.out.println(roomRepository.findByRoomId("1"));
+	public void selectOne() {
+		Optional<Room> findRoom = roomRepository.findById(11L);
+		Room room = findRoom.get();
+		System.out.println("room = " + room);
+
+	}
+
+	@Test
+	public void deleteRoomId() {
+		roomRepository.deleteById(12L);
 	}
 }
