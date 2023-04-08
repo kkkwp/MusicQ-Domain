@@ -1,5 +1,19 @@
 package com.musicq.musicqdomain.member.controller;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.musicq.musicqdomain.member.domain.Member;
 import com.musicq.musicqdomain.member.domain.MemberImage;
 import com.musicq.musicqdomain.member.dto.MemberInfoResDto;
@@ -9,13 +23,6 @@ import com.musicq.musicqdomain.member.persistence.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -63,7 +70,7 @@ public class MemberController {
 	public ResponseEntity<MemberInfoResDto> changeMemberInfo(
 		@Valid @PathVariable("id") String id,
 		@Valid @RequestBody String memberInfo
-	){
+	) {
 		// 현재 입력 받은 id로 사용자의 정보를 가져와서 사용자가 입력한 MemberInfo에서 수정할
 		// 요소들을 꺼내와서 id로 가져온 사용자 정보중 변경사항을 changes로 적용 후 꺼내온
 		// 사용자의 정보를 다시 저장해서 Update되도록 구성
