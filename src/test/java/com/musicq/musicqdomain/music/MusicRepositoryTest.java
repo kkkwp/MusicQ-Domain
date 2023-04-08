@@ -1,6 +1,6 @@
 package com.musicq.musicqdomain.music;
 
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,19 @@ public class MusicRepositoryTest {
 
 	@Test
 	public void insert() {
-		IntStream.rangeClosed(1, 10).forEach(i -> {
+		LongStream.rangeClosed(1, 10).forEach(i -> {
 			Music music = Music.builder()
 				.musicTitle("musicTitle" + i)
-				.musicLink("videoId" + i)
+				.videoId("videoId" + i)
 				.singer("singer" + i)
 				.build();
 
 			musicRepository.save(music);
 		});
+	}
+
+	@Test
+	public void searchAll() {
+		System.out.println(musicRepository.findAll());
 	}
 }

@@ -2,8 +2,6 @@ package com.musicq.musicqdomain.music.domain;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.musicq.musicqdomain.common.BaseEntity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +30,7 @@ public class Music {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long musicId;
 
-	private String musicLink;
+	private String videoId;
 
 	private String musicTitle;
 
