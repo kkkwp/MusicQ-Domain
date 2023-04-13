@@ -1,5 +1,20 @@
 package com.musicq.musicqdomain.member.controller;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.musicq.musicqdomain.member.domain.Member;
 import com.musicq.musicqdomain.member.domain.MemberImage;
 import com.musicq.musicqdomain.member.dto.MemberInfoResDto;
@@ -9,13 +24,6 @@ import com.musicq.musicqdomain.member.persistence.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -62,22 +70,21 @@ public class MemberController {
 	@PutMapping("/member/{id}")
 	public ResponseEntity<MemberInfoResDto> changeMemberInfo(
 		@Valid @PathVariable("id") String id,
-		@Valid @RequestBody String memberInfo
-	){
+		@Valid @RequestBody String changeInfo
+	) {
 		// 현재 입력 받은 id로 사용자의 정보를 가져와서 사용자가 입력한 MemberInfo에서 수정할
 		// 요소들을 꺼내와서 id로 가져온 사용자 정보중 변경사항을 changes로 적용 후 꺼내온
 		// 사용자의 정보를 다시 저장해서 Update되도록 구성
 		Member existMember = memberRepository.findById(id);
 		MemberImage existMemberImage = memberImageRepository.findAllByMember_Id(id);
 
-		Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
-		Member member = (Member)entityMap.get("member");
-		MemberImage memberImage = (MemberImage)entityMap.get("member_image");
+		JSONObject memberInfo = new JSONObject(changeInfo);
+		JSONObject memberImageInfo = memberInfo.getJSONObject("memberImage");
 
-		existMember.changesNickname(member.getNickname());
-		existMemberImage.changesUuid(memberImage.getUuid());
-		existMemberImage.changesPath(memberImage.getPath());
-		existMemberImage.changesProfile_img(memberImage.getProfile_img());
+		existMember.changesNickname(memberInfo.getString("nickname"));
+		existMemberImage.changesUuid(memberImageInfo.getString("uuid"));
+		existMemberImage.changesPath(memberImageInfo.getString("path"));
+		existMemberImage.changesProfile_img(memberImageInfo.getString("profile_img"));
 
 		memberRepository.save(existMember);
 		memberImageRepository.save(existMemberImage);
@@ -88,6 +95,26 @@ public class MemberController {
 		MemberInfoResDto response = memberRepository.entityToMemberInfoRes(changedMember, changedMemberImage);
 
 		return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/password/{id}")
+	public ResponseEntity<Object> changesPassword(
+		@Valid @PathVariable("id") String id,
+		@Valid @RequestBody String password
+	) {
+		Map<String, String> response = new HashMap<>();
+		try {
+			Member existMember = memberRepository.findById(id);
+			existMember.changesPassword(password);
+			memberRepository.save(existMember);
+			response.put("result", "Success");
+			return ResponseEntity.ok(response);
+		} catch (NullPointerException e) {
+			log.warn(e.getStackTrace());
+			log.warn(e.getMessage());
+			response.put("result", "Failed");
+			return ResponseEntity.badRequest().body(response);
+		}
 	}
 
 	// 회원 탈퇴
