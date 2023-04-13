@@ -4,8 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.musicq.musicqdomain.room.domain.Room;
 import com.musicq.musicqdomain.room.dto.RoomDto;
+import com.musicq.musicqdomain.room.persistence.search.RoomSearch;
 
-public interface RoomRepository extends JpaRepository<Room, Long> {
+public interface RoomRepository extends JpaRepository<Room, Long>, RoomSearch {
 
 	default RoomDto entityToRoomDto(Room room) {
 		RoomDto roomDto = RoomDto.builder()
