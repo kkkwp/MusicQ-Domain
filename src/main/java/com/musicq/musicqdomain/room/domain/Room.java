@@ -4,8 +4,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -27,8 +25,8 @@ import lombok.extern.log4j.Log4j2;
 public class Room {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long roomId;
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String roomId;
 
 	private String roomTitle;
 

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class RoomDto {
 
 	@NotNull
-	private Long room_id;
+	private String roomId;
 
 	@NotNull
 	private String roomTitle;
