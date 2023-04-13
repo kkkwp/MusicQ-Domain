@@ -3,6 +3,7 @@ package com.musicq.musicqdomain.room;
 import java.util.Optional;
 import java.util.stream.LongStream;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,25 +25,23 @@ public class RoomRepositoryTest {
 		LongStream.rangeClosed(1, 10)
 			.forEach(i -> {
 				Room room = Room.builder()
-					.roomId(i)
+					.roomId("ses_" + i)
 					.roomTitle("roomTitle" + i)
 					.gameName("낭독퀴즈")
 					.build();
-
 				roomRepository.save(room);
 			});
 	}
 
 	@Test
 	public void selectOne() {
-		Optional<Room> findRoom = roomRepository.findById(11L);
+		Optional<Room> findRoom = roomRepository.findById("ses_7");
 		Room room = findRoom.get();
-		System.out.println("room = " + room);
-
+		Assertions.assertEquals(room.getRoomTitle(), "roomTitle7");
 	}
 
 	@Test
 	public void deleteRoomId() {
-		roomRepository.deleteById(12L);
+		roomRepository.deleteById("ses_7");
 	}
 }
