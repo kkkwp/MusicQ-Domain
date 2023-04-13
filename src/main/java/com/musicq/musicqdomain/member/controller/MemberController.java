@@ -97,7 +97,7 @@ public class MemberController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PutMapping("/password/{id}")
+	@PutMapping("/member/password/{id}")
 	public ResponseEntity<Object> changesPassword(
 		@Valid @PathVariable("id") String id,
 		@Valid @RequestBody String password
@@ -202,13 +202,16 @@ public class MemberController {
 		try {
 			count = memberRepository.countByNickname(nickname);
 			currentNickname = memberRepository.getCurrentNickname(id);
-			log.warn(currentNickname);
+			
+			if (currentNickname == null) {
+				currentNickname = "";
+			}
+			response.put("count", count);
+			response.put("currentNickname", currentNickname);
+
 		} catch (NullPointerException e) {
 			log.warn("Not Exist Nickname");
 		}
-
-		response.put("count", count);
-		response.put("currentNickname", currentNickname);
 		return ResponseEntity.ok(response);
 	}
 
