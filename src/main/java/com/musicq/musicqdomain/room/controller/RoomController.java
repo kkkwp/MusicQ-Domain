@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,9 +28,21 @@ import lombok.extern.log4j.Log4j2;
 public class RoomController {
 	private final RoomRepository roomRepository;
 
+	@PostMapping("/create/{sessionID}")
+	public ResponseEntity<RoomDto> createRoom(
+		@Valid @PathVariable("sessionID") String sessionID,
+		@Valid @RequestBody String roomInfo
+	) {
+		Room room = roomRepository.roomInfoToEntity(roomInfo, sessionID);
+		roomRepository.save(room);
+
+		RoomDto response = roomRepository.entityToRoomDto(room);
+		return ResponseEntity.ok(response);
+	}
+
 	// 단일 방 정보 조회 - 방 입장을 위해 사용
 	@GetMapping("/enter/{roomId}")
-	public ResponseEntity<Object> roomEnter(@Valid @PathVariable("roomId") Long roomId) {
+	public ResponseEntity<Object> enterRoom(@Valid @PathVariable("roomId") String roomId) {
 		Optional<Room> findRoom = roomRepository.findById(roomId);
 
 		Room room = findRoom.get();
@@ -39,7 +53,7 @@ public class RoomController {
 
 	// 방 삭제
 	@DeleteMapping("/delete/{roomId}")
-	public ResponseEntity<Object> deleteRoom(@Valid @PathVariable("roomId") Long roomId) {
+	public ResponseEntity<Object> deleteRoom(@Valid @PathVariable("roomId") String roomId) {
 		Map<String, Long> response = new HashMap<>();
 
 		Optional<Room> findRoom = roomRepository.findById(roomId);
