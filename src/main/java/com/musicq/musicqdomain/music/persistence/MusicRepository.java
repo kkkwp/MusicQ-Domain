@@ -8,6 +8,8 @@ import com.musicq.musicqdomain.music.dto.MusicDto;
 
 @Repository
 public interface MusicRepository extends JpaRepository<Music, Integer> {
+	// musicId로 Music 조회
+	Music findByMusicId(String id);
 
 	default MusicDto entityToDto(Music music) {
 		MusicDto musicDto = MusicDto.builder()
