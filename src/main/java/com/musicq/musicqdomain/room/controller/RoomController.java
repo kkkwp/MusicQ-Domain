@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,26 +35,23 @@ public class RoomController {
 	private final RoomRepository roomRepository;
 
 	@PostMapping("/create/{sessionID}")
-	public ResponseEntity<RoomDto> createRoom(
+	public ResponseEntity<Object> createRoom(
 		@Valid @PathVariable("sessionID") String sessionID,
 		@Valid @RequestBody String roomInfo
 	) {
+		Map<String, String> response = new HashMap<>();
+
+		// 이미 존재하는 방인지 확인
+		Optional<Room> findRoom = roomRepository.findById(sessionID);
+		if (findRoom.isPresent()) {
+			return ResponseEntity.badRequest().body(response);
+		}
+
 		Room room = roomRepository.roomInfoToEntity(roomInfo, sessionID);
 		roomRepository.save(room);
 
-		RoomDto response = roomRepository.entityToRoomDto(room);
-		return ResponseEntity.ok(response);
-	}
-
-	// 단일 방 정보 조회 - 방 입장을 위해 사용
-	@GetMapping("/enter/{roomId}")
-	public ResponseEntity<Object> enterRoom(@Valid @PathVariable("roomId") String roomId) {
-		Optional<Room> findRoom = roomRepository.findById(roomId);
-
-		Room room = findRoom.get();
-		RoomDto response = roomRepository.entityToRoomDto(room);
-
-		return ResponseEntity.ok(response);
+		RoomDto roomDto = roomRepository.entityToRoomDto(room);
+		return ResponseEntity.ok(roomDto);
 	}
 
 	// 방 삭제
@@ -104,10 +100,8 @@ public class RoomController {
 		response.put("next", allRooms.hasNext());
 		List<RoomDto> dtoList = allRooms.getContent()
 			.stream()
-			.map(room ->
-				roomRepository.entityToRoomDto(room)
-			)
-			.collect(Collectors.toList());
+			.map(roomRepository::entityToRoomDto
+			).toList();
 		response.put("data", allRooms.getContent());
 
 		return ResponseEntity.ok(response);
