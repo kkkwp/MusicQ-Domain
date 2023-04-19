@@ -74,19 +74,19 @@ public class RoomRepositoryTest {
 		Pageable pageable = PageRequest.of(0, 6, Sort.by("roomId").descending());
 
 		Page<Room> result = roomRepository.searchAll(pageable);
-		log.info("result : {}", result);
-
-		// total pages
-		log.info(result.getTotalPages());
-
-		// page size
-		log.info(result.getSize());
-
-		// pageNumber
-		log.info(result.getNumber());
-
-		// prev next
-		log.info(result.hasPrevious() + ": " + result.hasNext());
-		result.getContent().forEach(room -> log.info(room));
+		// log.info("result : {}", result);
+		//
+		// // total pages
+		// log.info(result.getTotalPages());
+		//
+		// // page size
+		// log.info(result.getSize());
+		//
+		// // pageNumber
+		// log.info(result.getNumber());
+		//
+		// // prev next
+		// log.info(result.hasPrevious() + ": " + result.hasNext());
+		// result.getContent().forEach(room -> log.info(room));
 	}
 }

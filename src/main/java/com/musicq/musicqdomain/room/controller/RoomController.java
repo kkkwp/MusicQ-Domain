@@ -89,12 +89,6 @@ public class RoomController {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("roomId").descending());
 		Page<Room> allRooms = roomRepository.searchAll(pageable);
 
-		response.put("totalPages", allRooms.getTotalElements());
-
-		response.put("size", allRooms.getSize());
-
-		response.put("number", allRooms.getNumber());
-
 		response.put("previous", allRooms.hasPrevious());
 
 		response.put("next", allRooms.hasNext());
