@@ -166,6 +166,11 @@ public class MemberController {
 			log.warn("Not Exist ID");
 		}
 
+		Member member = memberRepository.findById(id);
+		if (member.getDeletedAt() != null) {
+			count = 0;
+		}
+
 		response.put("count", count);
 		log.warn(count);
 		return ResponseEntity.ok(response);
@@ -202,7 +207,7 @@ public class MemberController {
 		try {
 			count = memberRepository.countByNickname(nickname);
 			currentNickname = memberRepository.getCurrentNickname(id);
-			
+
 			if (currentNickname == null) {
 				currentNickname = "";
 			}
