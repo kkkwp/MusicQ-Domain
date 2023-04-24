@@ -164,10 +164,13 @@ public class MemberController {
 			log.warn("Not Exist ID");
 		}
 
+		response.put("deletedId", 0L);
+		
 		Member member = memberRepository.findById(id);
 		if (member != null) {
 			if (member.getDeletedAt() != null) {
 				count = 0;
+				response.put("deletedId", 1L);
 			}
 		}
 		response.put("count", count);
