@@ -123,7 +123,7 @@ public class MemberController {
 		@Valid @PathVariable("id") String id
 	) {
 		// JSON형태로 출력하기 위해서?
-		Map<String, Long> response = new HashMap<>();
+		Map<String, Boolean> response = new HashMap<>();
 
 		// 현재 시간
 		LocalDateTime now = LocalDateTime.now();
@@ -139,16 +139,14 @@ public class MemberController {
 		memberImage.setDeletedAt(now);
 		memberImageRepository.save(memberImage);
 
-		long count = 0;
-		// 탈퇴가 완료되었다면 count가 0이 나와야한다.
-		try {
-			count = memberRepository.countById(id);
-		} catch (NullPointerException e) {
-			log.warn("Not Exist ID");
+		Member deletedMember = memberRepository.findById(id);
+		boolean deleteResult = false;
+		if (deletedMember.getDeletedAt() != null) {
+			deleteResult = true;
 		}
 
-		response.put("count", count);
-		log.warn(count);
+		response.put("result", deleteResult);
+		log.warn(deleteResult);
 
 		return ResponseEntity.ok(response);
 	}
@@ -167,10 +165,11 @@ public class MemberController {
 		}
 
 		Member member = memberRepository.findById(id);
-		if (member.getDeletedAt() != null) {
-			count = 0;
+		if (member != null) {
+			if (member.getDeletedAt() != null) {
+				count = 0;
+			}
 		}
-
 		response.put("count", count);
 		log.warn(count);
 		return ResponseEntity.ok(response);
