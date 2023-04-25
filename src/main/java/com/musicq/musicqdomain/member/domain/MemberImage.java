@@ -14,7 +14,7 @@ import lombok.*;
 public class MemberImage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inum;
+    private Long member_image_id;
 
     private String uuid; // 파일 이름이 겹치지 않도록 하기 위해서 추가적으로 붙일 uuid
     private String profile_img; // 파일 이름
@@ -22,6 +22,7 @@ public class MemberImage extends BaseEntity {
     private String path;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public void changesUuid(String uuid){
