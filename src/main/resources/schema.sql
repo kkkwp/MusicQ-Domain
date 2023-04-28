@@ -1,3 +1,9 @@
+# DROP TABLE IF EXISTS lyrics;
+# DROP TABLE IF EXISTS music;
+# DROP TABLE IF EXISTS room;
+# DROP TABLE IF EXISTS member_image;
+# DROP TABLE IF EXISTS member;
+
 CREATE TABLE music
 (
     music_id    BIGINT NOT NULL AUTO_INCREMENT,
