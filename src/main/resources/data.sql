@@ -777,3 +777,189 @@ Loverhollic
 Loverhollic
 Loverhollic
 거부할 수 없는 너의 마력은 LUCIFER", 14);
+
+-- 크러쉬 - Oasis
+insert into music(music_title, singer, video_id)
+values ('Oasis', '크러쉬', '1SX7W1IfJw');
+insert into lyrics(music_lyrics, music_id)
+values ("난 널 you 목말라해 너무 더워
+물이 필요해 Hot in here
+난 웅덩이 깊이 파인 곳을 찾아 다녀
+달콤하게 날 더 바라봐줘 넌 훌륭해 이 메마른 땅을
+정글로 만들고 난 모험하고 또 탐험
+You know how we do it we just do it
+All you ladies hands in the air
+All my ladies hands up in the air
+그녀는 그녀는 날 미치게 해 그녀는 날 숨쉬게 해
+Yeah
+O A Shes mine O A Shes mine
+O A Shes mine Yeah Shes mine
+All you ladies hands in the air
+All my ladies hands up in the air
+그녀는 그녀는 날 미치게 해 그녀는 날 숨쉬게 해
+Get closer to my body
+천국에다가 데려다 줄게 body to body
+넌 낮이 밤이 될 때까지 waterfall
+그 속에서 난 헤엄치고 싶어
+You know how we do it we just do it
+All you ladies hands in the air
+All my ladies hands up in the air
+그녀는 그녀는 날 미치게 해
+그녀는 날 숨쉬게 해
+Yeah", 15);
+
+-- 틴탑 - To You
+insert into music(music_title, singer, video_id)
+values ('To You', '틴탑', 'Cn4R8Y-hRfY');
+insert into lyrics(music_lyrics, music_id)
+values ("넌 내 맘이 들리긴 하니 모른척 하니
+왜 그리 몰라 이 멍청한 바보야 oh
+Im Fallin Down 점점 깊어져가
+니 그리움에 너무 숨이 막혀와 girl 오늘도
+다들 미쳤다고해 그만 잊으라고해
+그게 안 되잖아 Woo woo hoo 도대체 왜
+나도 지칠 것 같애 시간이 흐를수록
+변해가는 내 모습을 보는데
+Its like 매일매일 everyday ya
+내 맘이 아파오는데 답답한 맘을 니가 알리 없잖아
+Its like 매일매일 every day ya
+나 혼자 슬퍼지는데 너는 지금 어디서 뭘 하는데
+Whoo woo hoo Whoo woo hoo Whoo woo hoo
+Hey to you to you to you now
+Whoo woo hoo Whoo woo hoo Whoo woo hoo
+Hey to you to you to you now", 16);
+
+-- 스탠딩 에그 - 오래된노래
+insert into music(music_title, singer, video_id)
+values ('오래된 노래', '스탠딩 에그', 'bW3XExLBf7A');
+insert into lyrics(music_lyrics, music_id)
+values ("오래전에 함께듣던 노래가
+발걸음을 다시 멈춰서게 해
+이 거리에서 너를 느낄수있어
+널 이곳에서 꼭다시 만날것같아
+너일까봐 한번더 바라보고
+너일까봐 자꾸 돌아보게 돼
+어디선가 같은 노래를 듣고
+날 생각하며 너역시 멈춰있을까
+오래전에 함께듣던 노래가
+거리에서 내게 우연히 들려온것처럼
+살아가다 한번쯤 우연히 만날것같아
+사랑했던 그모습 그대로
+내 사랑이 그대로인것처럼
+발걸음이 여길 찾는것처럼
+꼭 만날꺼야 지금 이노래 처럼
+날 사랑하는 네맘도 같을테니까
+오래전에 함께듣던 노래가
+거리에서 내게 우연히 들려온것처럼
+살아가다 한번쯤 우연히 만날것같아
+사랑했던 그모습 그대로
+운명처럼 아니면 우연처럼
+우리가 다시 예전처럼 만날수 있다면
+너에게 나 해주고 싶은 말이 하나있어
+널다시는 놓치지 않을께", 17);
+
+-- 박재범 - All I Wanna Do
+insert into music(music_title, singer, video_id)
+values ('All I Wanna Do', '박재범', 'lT7Q93fy1us');
+insert into lyrics(music_lyrics, music_id)
+values ("Girl 말해줘 네 마음 바로 지금
+Baby 같이 올라가자 하늘 위로
+All I wanna do is kick it with you
+너의 몸매 그린 것만 같아 미술
+오늘 의상처럼 네 마음도 씨쓰루
+All I wanna do is kick it with you
+Girl 뭐가 중요한지 baby 바로 말해줄게
+나 지금 5천만원짜리 시계 찼지만
+나는 너를 훨씬 아끼지 babe
+네가 원한다면 안 찰게
+허세 따위는 안 통하니까
+넌 정말 신기한 여자
+나를 노력하게 만드니까 baby oh yeah
+우리 둘의 밤을 상상했어 girl all night
+몸에 타투를 보여줘 If its alright
+Girl 말해줘 네 마음 바로 지금
+Baby 같이 올라가자 하늘 위로
+All I wanna do is kick it with you
+너의 몸매 그린 것만 같아 미술
+오늘 의상처럼 네 마음도 씨쓰루
+All I wanna do is kick it with you
+어떡해 내 맘에 네가 들어오려 해
+쉽게 빠질까 봐 위험해 보여 조심하려 할 때
+움직여지지 않아 날 보는 네 시선이 내 몸을 감아
+하나로 얽혀 너와 나
+이제부턴 아무도 풀지 못해
+뻔하지 않게 우연같이 만나 baby
+서로에게 녹아들어
+오늘밤 우리 기분은 저 하늘 구름 위
+네 몸에 타투를 보여줘 이미 내 맘은 준비되어있어", 18);
+
+-- 버즈 - 가시
+insert into music(music_title, singer, video_id)
+values ('가시', '버즈', 'FT1pDacyuVk');
+insert into lyrics(music_lyrics, music_id)
+values ("너 없는 지금도 눈부신 하늘과
+눈부시게 웃는 사람들
+나의 헤어짐을 모르는 세상은
+슬프도록 그대로인데
+시간마저 데려가지 못하게
+나만은 널 보내지 못했나 봐
+가시처럼 깊게 박힌 기억은
+아파도 아픈 줄 모르고
+그대 기억이 지난 사랑이
+내 안을 파고드는 가시가 되어
+제발 가라고 아주 가라고
+애써도 나를 괴롭히는데
+아픈 만큼 너를 잊게 된다면
+차라리 앓고 나면 그만인데
+가시처럼 깊게 박힌 기억은
+아파도 아픈 줄 모르고
+그대 기억이 지난 사랑이
+내 안을 파고드는 가시가 되어
+제발 가라고 아주 가라고
+애써도 나를 괴롭히는데
+너무 사랑했던 나를
+그게 두려웠던 나를
+미치도록 너를 그리워했던
+날 이제는 놓아줘", 19);
+
+-- JENNIE - SOLO
+insert into music(music_title, singer, video_id)
+values ('SOLO', 'JENNIE', 'b73BI9eUkjM');
+insert into lyrics(music_lyrics, music_id)
+values ("천진난만 청순가련 새침한 척 이젠 지쳐 나 귀찮아
+매일 뭐 해? 어디야? 밥은? 잘 자
+Baby 자기 여보 보고 싶어 다 부질없어
+You got me like
+이건 아무 감동 없는 Love Story
+어떤 설렘도 어떤 의미도
+네겐 미안하지만 Im not sorry
+오늘부터 난 난 난
+빛이 나는 솔로
+빛이 나는 솔로
+Im going solo lo lo lo lo lo
+Im going solo lo lo lo lo lo
+Used to be your girl
+Now Im used to being the GOAT
+Youre sittin on your feelings
+Im sittin on my throne
+I aint got no time for the troubles in your eyes
+This time Im only lookin at me myself and I
+Imma do it on my own now
+Now that youre alone got you lookin for a clone now
+Thats how Im gettin down
+Destined for this and the crown
+Sing it loud like
+이건 아무 감동 없는 Love Story
+어떤 설렘도 어떤 의미도
+네겐 미안하지만 Im not sorry
+오늘부터 난 난 난
+빛이 나는 솔로
+빛이 나는 솔로
+Im going solo lo lo lo lo lo
+Im going solo lo lo lo lo lo
+만남 설렘 감동 뒤엔 이별 눈물 후회 그리움
+홀로인 게 좋아 난 나다워야 하니까
+자유로운 바람처럼
+구름 위에 별들처럼
+멀리 가고 싶어 밝게 빛나고 싶어
+빛이 나는 솔로", 20);
