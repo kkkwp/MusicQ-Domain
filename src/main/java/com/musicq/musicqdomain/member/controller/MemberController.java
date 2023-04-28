@@ -43,9 +43,9 @@ public class MemberController {
 		Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
 		MemberImage memberImage = (MemberImage)entityMap.get("member_image");
 		Member member = (Member)entityMap.get("member");
-
-		memberImageRepository.save(memberImage);
+		
 		memberRepository.save(member);
+		memberImageRepository.save(memberImage);
 
 		MemberInfoResDto response = memberRepository.entityToMemberInfoRes(member, memberImage);
 		return ResponseEntity.ok(response);
