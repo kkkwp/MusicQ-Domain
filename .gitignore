@@ -1,8 +1,7 @@
 HELP.md
 .gradle
 build/
-application-prod.yml
-application-local.yml
+src/main/resources/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
