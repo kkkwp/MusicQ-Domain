@@ -41,12 +41,11 @@ public class MemberController {
 	) {
 		log.error(memberInfo);
 		Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
-		Member member = (Member)entityMap.get("member");
 		MemberImage memberImage = (MemberImage)entityMap.get("member_image");
-		log.error(memberImage + "dho");
+		Member member = (Member)entityMap.get("member");
 
-		memberRepository.save(member);
 		memberImageRepository.save(memberImage);
+		memberRepository.save(member);
 
 		MemberInfoResDto response = memberRepository.entityToMemberInfoRes(member, memberImage);
 		return ResponseEntity.ok(response);
