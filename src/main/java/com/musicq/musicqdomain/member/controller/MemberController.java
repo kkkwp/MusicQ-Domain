@@ -39,9 +39,11 @@ public class MemberController {
 	public ResponseEntity<MemberInfoResDto> controlMemberInfo(
 		@Valid @RequestBody String memberInfo
 	) {
+		log.error(memberInfo);
 		Map<String, Object> entityMap = memberRepository.memberInfoToEntity(memberInfo);
 		Member member = (Member)entityMap.get("member");
 		MemberImage memberImage = (MemberImage)entityMap.get("member_image");
+		log.error(memberImage + "dho");
 
 		memberRepository.save(member);
 		memberImageRepository.save(memberImage);
@@ -165,7 +167,7 @@ public class MemberController {
 		}
 
 		response.put("deletedId", 0L);
-		
+
 		Member member = memberRepository.findById(id);
 		if (member != null) {
 			if (member.getDeletedAt() != null) {
